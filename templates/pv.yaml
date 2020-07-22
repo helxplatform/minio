@@ -1,0 +1,22 @@
+# This is persistent storage for NFS clients to use.
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.persistence.pvName }}
+  namespace: {{ .Values.persistence.pvNamespace }}
+spec:
+  capacity:
+    storage: {{ .Values.persistence.pvStorageCapacity }}
+  accessModes:
+    - {{ .Values.persistence.accessMode }}
+  {{- if .Values.persistence.onPrem }}
+  nfs:
+    server: {{ .Values.persistence.nfsServerHostName }} #This has to be internal ip of NFS server or service
+    path: {{ .Values.persistence.nfsPath }}
+  {{- end }}
+  {{- if .Values.persistence.GKE }}
+  gcePersistentDisk:
+    fsType: {{ .Values.persistence.pdFsType }}
+    pdName: {{ .Values.persistence.pdName }}
+  {{- end }}
+  storageClassName: {{ .Values.persistence.storageClass }}
