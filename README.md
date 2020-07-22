@@ -9,4 +9,4 @@ The default SecretKey and AccessKey are set to minio123 and minio respectively.
 https://github.com/helxplatform/minio/blob/e099c5beb1774e37d79e5f8a1dfc8383d6b1438b/values.yaml#L65-L66
 
 To run minio - make sure you are using helm3,
-helm install minio minio/ -n <namespace>
+```helm install minio minio/ -n <namespace>```
